@@ -64,10 +64,8 @@ public class ValidationItemControllerV4 {
         }
 
         //성공 로직
-        Item item = new Item();
-        item.setItemName(form.getItemName());
-        item.setPrice(form.getPrice());
-        item.setQuantity(form.getQuantity());
+        ItemSaveForm itemSaveForm = new ItemSaveForm();
+        Item item = itemSaveForm.save(form);
 
         Item savedItem = itemRepository.save(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());
@@ -99,10 +97,9 @@ public class ValidationItemControllerV4 {
             return "validation/v4/editForm";
         }
 
-        Item itemParam = new Item();
-        itemParam.setItemName(form.getItemName());
-        itemParam.setPrice(form.getPrice());
-        itemParam.setQuantity(form.getQuantity());
+        ItemUpdateForm itemUpdateForm = new ItemUpdateForm();
+        Item itemParam = itemUpdateForm.edit(form);
+
 
         itemRepository.update(itemId, itemParam);
         return "redirect:/validation/v4/items/{itemId}";
